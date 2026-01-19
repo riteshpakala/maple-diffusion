@@ -5,8 +5,12 @@ if len(sys.argv) < 2: raise ValueError(f"Usage: {sys.argv[0]} path_to_ckpt")
 from pathlib import Path
 import torch as th
 import numpy as np
+# from pytorch_lightning.callbacks.model_checkpoint import ModelCheckpoint
 
-ckpt = th.load(sys.argv[1], map_location="cpu")
+# # Allowlist the global
+# th.serialization.add_safe_globals([ModelCheckpoint])
+
+ckpt = th.load(sys.argv[1], map_location="cpu", weights_only=False)
 outpath = Path("maple-diffusion/bins")
 outpath.mkdir(exist_ok=True)
 
